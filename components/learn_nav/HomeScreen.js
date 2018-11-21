@@ -45,7 +45,8 @@ export default class HomeScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 3,
-        justifyContent: 'space-between',
+        flexDirection:'column',
+        justifyContent: 'space-around',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
