@@ -7,7 +7,7 @@
  */
 
 import React, { Component } from 'react';
-import { createStackNavigator, createNavigationContainer,} from "react-navigation"
+import { createStackNavigator, createAppContainer,} from "react-navigation"
 import { Platform, StyleSheet, Text, View, Image } from 'react-native';
 import HomeScreen from './components/learn_nav/HomeScreen'
 import ProfileScreen from './components/learn_nav/ProfileScreen'
@@ -19,7 +19,7 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-const App = createStackNavigator(
+const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
     Profile: ProfileScreen,
@@ -28,4 +28,4 @@ const App = createStackNavigator(
     initialRouteName: 'Home',
   });
 
-export default App;
+export default createAppContainer(AppNavigator);
