@@ -1,30 +1,39 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
-import Greeting from "../learn_props/GreetingComponent";
+import { View, StyleSheet, Button } from 'react-native';
 
 export default class HomeScreen extends Component {
     static navigationOptions = {
         title: "Welcome",
     };
     render() {
-        var movie = MOCKED_MOVIE_DATAS[0];
         return (
             <View style={styles.container}>
-                <Text>{movie.title}</Text>
-                <Text>{movie.year}</Text>
-                <Image source={{ uri: movie.posters.thumbnail }} style={styles.thumbnail} />
-                <View style={{ alignItems: 'center' }}>
-                    <Greeting name='Rexxar' />
-                    <Greeting name='Jaina' />
-                    <Greeting name='Valeera' />
-                </View>
                 <Button
+                    style={styles.btn_items}
                     title="Go to Jane's profile"
                     onPress={
                         () => {
                             this.props.navigation.navigate('Profile', {
                                 name: 'Jane',
                             })
+                        }
+                    }
+                />
+                <Button
+                    style={styles.btn_items}
+                    title="got to BlinkPage"
+                    onPress={
+                        () => {
+                            this.props.navigation.navigate('BlinkScreen')
+                        }
+                    }
+                />
+                <Button
+                    style={styles.btn_items}
+                    title="Go to Film List"
+                    onPress={
+                        () => {
+                            this.props.navigation.navigate('FilmPage')
                         }
                     }
                 />
@@ -35,23 +44,14 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
+        flex: 3,
+        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    thumbnail: {
-        width: 53,
-        height: 81
-    },
-});
-
-var MOCKED_MOVIE_DATAS = [
-    {
-        title: "标题",
-        year: 2015,
-        posters: {
-            thumbnail: "http://i.imgur.com/UePbdph.jpg"
-        }
+    btn_items: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#aaeeFF',
     }
-];
+});
