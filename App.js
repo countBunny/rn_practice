@@ -15,6 +15,8 @@ import FilmPage from './components/film_list/FilmPage'
 import BlinkScreen from './components/learn_state/BlinkScreen'
 import PizzaConvertor from './components/learn_state/TextInputConvert'
 import TouchExample from './components/learn_state/TouchScreen'
+import FlatListScreen from "./components/learn_state/FlatListScreen";
+import SectionListScreen from "./components/learn_state/SectionListScreen";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -30,7 +32,9 @@ const AppNavigator = createStackNavigator(
         BlinkScreen: BlinkScreen,
         FilmPage: FilmPage,
         PizzaPage: PizzaConvertor,
-        TouchScreen: TouchExample
+        TouchScreen: TouchExample,
+        FlatListScreen: FlatListScreen,
+        SectionListScreen: SectionListScreen,
     },
     {
         initialRouteName: 'Home',

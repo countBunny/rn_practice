@@ -70,6 +70,30 @@ export default class HomeScreen extends Component {
 
                     />
                 </View>
+                <View style={styles.container}>
+                    <Button
+                        style={styles.btn_items}
+                        title="Go to flatList"
+                        onPress={
+                            () => {
+                                this.props.navigation.navigate('FlatListScreen')
+                            }
+                        }
+
+                    />
+                </View>
+                <View style={styles.container}>
+                    <Button
+                        style={styles.btn_items}
+                        title="Go to SectionList"
+                        onPress={
+                            () => {
+                                this.props.navigation.navigate('SectionListScreen')
+                            }
+                        }
+
+                    />
+                </View>
 
 
             </ScrollView>
