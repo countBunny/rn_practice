@@ -95,6 +95,19 @@ export default class HomeScreen extends Component {
                     />
                 </View>
 
+                <View style={styles.container}>
+                    <Button
+                        style={styles.btn_items}
+                        title="Go to FetchExample"
+                        onPress={
+                            () => {
+                                this.props.navigation.navigate('FetchExample')
+                            }
+                        }
+
+                    />
+                </View>
+
 
             </ScrollView>
         );
