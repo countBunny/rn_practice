@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Animated, Text, View, Easing } from 'react-native';
 
 class FadeInView extends Component {
-    state ={
+    state = {
         fadeAnim: new Animated.Value(0),//初始值设置为0
     }
 
-    componentDidMount(){
+    componentDidMount() {
         Animated.timing(
             this.state.fadeAnim,
             {
@@ -17,12 +17,29 @@ class FadeInView extends Component {
         ).start()
     }
 
-    render(){
-        let {fadeAnim} = this.state;
+    render() {
+        let { fadeAnim } = this.state;
         return (<Animated.View
             style={{
                 ...this.props.style,
                 opacity: fadeAnim,
+                transform: [
+                    // {
+                    //     translateY: this.state.fadeAnim.interpolate({
+                    //         inputRange: [0, 1],
+                    //         outputRange: [150, 0],
+                    //     }),
+                    // },
+                    {
+                        rotateY: this.state.fadeAnim.interpolate({
+                            inputRange: [0, 1],
+                            easing: Easing.bounce,
+                            outputRange: ["0deg", "360deg"],
+                            extrapolate: "extend",
+                            extrapolateRight: "360deg",
+                        })
+                    }],
+
             }}>
             {this.props.children}
         </Animated.View>)
@@ -36,38 +53,43 @@ Animated.spring(a, {
     toValue: 2,
 }).start()
 
+a.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 100],
+})
+
 /**
  * 组合动画
  */
-function compositionAnim(){
+function compositionAnim() {
     Animated.sequence([
         Animated.decay(position,
-        {
-            velocity: {x:gestureState.vx, y: gestureState.vy},
-            deceleration: 0.997,
-        }),
+            {
+                velocity: { x: gestureState.vx, y: gestureState.vy },
+                deceleration: 0.997,
+            }),
         Animated.parallel([
             Animated.spring(position, {
-                toValue:{x:0, y:0},// return to start
+                toValue: { x: 0, y: 0 },// return to start
             }),
-            Animated.timing(twirl,{
+            Animated.timing(twirl, {
                 toValue: 360
             })
-        ],{
-            stopTogether:false,
-        })
+        ], {
+                stopTogether: false,
+            })
     ]).start()
 }
 
 export default class FadeScreen extends Component {
-    static navigationOptions={
+    static navigationOptions = {
         title: 'Animate Screen'
     }
 
-    render(){
-        return (<View style={{flex:1, alignItems: 'center', justifyContent: 'center'}}>
-            <FadeInView style={{width: 250, height: 50, backgroundColor: 'powderblue'}}>
-                <Text style={{fontSize: 28, textAlign:'center', margin: 10}}>Fading in</Text>
+    render() {
+        return (<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <FadeInView style={{ width: 250, height: 50, backgroundColor: 'powderblue' }}>
+                <Text style={{ fontSize: 28, textAlign: 'center', margin: 10 }}>Fading in</Text>
             </FadeInView>
         </View>)
     }
