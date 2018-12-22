@@ -18,7 +18,8 @@ import TouchExample from './components/learn_state/TouchScreen'
 import FlatListScreen from "./components/learn_state/FlatListScreen";
 import SectionListScreen from "./components/learn_state/SectionListScreen";
 import FetchExample from "./components/learn_net/NetOperator";
-import LoadImage from './components/advanced/loadimage/LoadImage'
+import LoadImage from './components/advanced/loadimage/LoadImage';
+import FadeScreen from "./components/advanced/FadeInView";
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -39,6 +40,7 @@ const AppNavigator = createStackNavigator(
         SectionListScreen: SectionListScreen,
         FetchExample: FetchExample,
         LoadImage: LoadImage,
+        FadeScreen: FadeScreen,
     },
     {
         initialRouteName: 'Home',
