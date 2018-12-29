@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Animated, Text, View, Easing } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 class FadeInView extends Component {
     state = {
@@ -11,8 +12,10 @@ class FadeInView extends Component {
             this.state.fadeAnim,
             {
                 toValue: 1,
-                easing: Easing.back(),
+                easing: Easing.back(), //not support by native module
                 duration: 2000,
+                useNativeDriver: false, //启用原生驱动
+                isInteraction: false, //仅展示动画，不影响用户交互
             }
         ).start()
     }
@@ -24,12 +27,12 @@ class FadeInView extends Component {
                 ...this.props.style,
                 opacity: fadeAnim,
                 transform: [
-                    // {
-                    //     translateY: this.state.fadeAnim.interpolate({
-                    //         inputRange: [0, 1],
-                    //         outputRange: [150, 0],
-                    //     }),
-                    // },
+                    {
+                        translateY: this.state.fadeAnim.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: [150, 0],
+                        }),
+                    },
                     {
                         rotateY: this.state.fadeAnim.interpolate({
                             inputRange: [0, 1],
@@ -38,9 +41,12 @@ class FadeInView extends Component {
                             extrapolate: "extend",
                             extrapolateRight: "360deg",
                         })
-                    }],
+                    },
+                    { perspective: 1000 },//make sure operate on Android
+                    ],
 
-            }}>
+            }}
+        >
             {this.props.children}
         </Animated.View>)
     }
@@ -57,6 +63,34 @@ a.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 100],
 })
+
+const scrollX = new Animated.Value()
+const pan = new Animated.ValueXY()
+
+function renderScrollView() {
+    return (<Animated.ScrollView
+        scrollEventThrottle={1} //设置为1 确保滚动事件足够密集
+        onScroll={
+            Animated.event(
+                [{
+                    nativeEvent: {
+                        contentOffset: scrollX,
+                    },
+                },], {//Animated.event中可以支持原生驱动
+                    useNativeDriver: true
+                }
+            )
+        }
+        onPanResponderMove={
+            Animated.event(
+                [null, {
+                    dx: pan.x,
+                    dy: pan.y,
+                }]
+            )
+        }
+    ></Animated.ScrollView>)
+}
 
 /**
  * 组合动画

@@ -130,6 +130,17 @@ export default class HomeScreen extends Component {
                         }
                     />
                 </View>
+                <View style={styles.container}>
+                    <Button
+                        style={styles.btn_items}
+                        title="Go to LayoutAnimation"
+                        onPress={
+                            () => {
+                                this.props.navigation.navigate('LayoutAnimationEx')
+                            }
+                        }
+                    />
+                </View>
 
 
             </ScrollView>
